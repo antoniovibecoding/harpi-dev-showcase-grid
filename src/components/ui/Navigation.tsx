@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { Button } from "./button";
 import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
@@ -35,12 +36,7 @@ const Navigation = () => {
     }`}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <a href="#home" className="text-xl font-bold hover:text-primary transition-colors">
-            HarpiDEV
-          </a>
-
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - moved to left */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <a

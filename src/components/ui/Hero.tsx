@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden min-h-[120vh]">
       <LampContainer>
         <motion.div
           initial={{ opacity: 0.5, y: 100 }}
@@ -18,18 +18,18 @@ const Hero = () => {
           }}
           className="text-center max-w-4xl mx-auto"
         >
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-            HarpiDEV
+          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold mb-8 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+            HarpiaDEV
           </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-2">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-4">
             by Antonio Marques
           </p>
-          <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
             Desenvolvedor Full Stack especializado em soluções web modernas, 
             criando experiências digitais excepcionais com tecnologias de ponta.
           </p>
           
-          <div className="flex flex-wrap gap-4 justify-center mb-12">
+          <div className="flex flex-wrap gap-4 justify-center mb-16">
             <Button variant="default" size="lg" className="hover-float">
               Ver Projetos
             </Button>
@@ -39,7 +39,7 @@ const Hero = () => {
           </div>
           
           {/* Social Links */}
-          <div className="flex gap-6 justify-center mb-12">
+          <div className="flex gap-6 justify-center mb-16">
             <a 
               href="https://github.com" 
               className="p-3 rounded-full bg-surface-elevated shadow-elegant hover-float transition-all"
