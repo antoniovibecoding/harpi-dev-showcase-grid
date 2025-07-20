@@ -3,9 +3,12 @@
 
 import { Suspense, lazy, useState, useEffect } from 'react';
 
+// Create a proper React component for the fallback
+const SplineFallback = () => null;
+
 const Spline = lazy(() => import('@splinetool/react-spline').catch(err => {
   console.error('Failed to load Spline component:', err);
-  return { default: () => null };
+  return { default: SplineFallback };
 }));
 
 interface InteractiveRobotSplineProps {
