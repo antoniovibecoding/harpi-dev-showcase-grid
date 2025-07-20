@@ -1,9 +1,12 @@
 
 'use client';
 
-import { Suspense, lazy } from 'react';
+import { Suspense, lazy, useState, useEffect } from 'react';
 
-const Spline = lazy(() => import('@splinetool/react-spline'));
+const Spline = lazy(() => import('@splinetool/react-spline').catch(err => {
+  console.error('Failed to load Spline component:', err);
+  return { default: () => null };
+}));
 
 interface InteractiveRobotSplineProps {
   scene: string;
@@ -11,6 +14,34 @@ interface InteractiveRobotSplineProps {
 }
 
 export function InteractiveRobotSpline({ scene, className }: InteractiveRobotSplineProps) {
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    // Pre-load the Spline component to catch errors early
+    import('@splinetool/react-spline').catch(err => {
+      console.error('Spline import error:', err);
+      setHasError(true);
+    });
+  }, []);
+
+  if (hasError) {
+    return (
+      <div className={`w-full h-full flex items-center justify-center bg-surface-elevated text-foreground ${className}`}>
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-16 h-16 rounded-full bg-muted flex items-center justify-center">
+            <svg className="w-8 h-8 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
+          </div>
+          <p className="text-sm text-muted-foreground text-center">
+            3D Robot unavailable<br />
+            <span className="text-xs">Interactive experience loading...</span>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <Suspense
       fallback={
@@ -28,6 +59,11 @@ export function InteractiveRobotSpline({ scene, className }: InteractiveRobotSpl
       <Spline
         scene={scene}
         className={className} 
+        onLoad={() => console.log('Spline scene loaded successfully')}
+        onError={(error) => {
+          console.error('Spline scene error:', error);
+          setHasError(true);
+        }}
       />
     </Suspense>
   );
